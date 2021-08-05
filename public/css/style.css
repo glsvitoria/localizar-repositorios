@@ -5,6 +5,14 @@
     list-style: none;
 }
 
+body {
+    background: #1FB88A;
+}
+
+.card-header {
+    background: #afa2e9;
+}
+
 ul {
     font-family: sans-serif;
 }
@@ -12,6 +20,11 @@ ul {
 li {
     clear: both;
     margin-top: 20px;
+}
+
+.list-group-item-action {
+    background: #7cb9a6;
+    border: 0;
 }
 
 img {
@@ -26,4 +39,13 @@ strong {
 
 p {
     margin: 5px 0;
+}
+
+.social i {
+    color: #167e5f;
+    font-size: 2.8rem;
+}
+
+.social a:hover {
+    text-decoration: none;
 }
