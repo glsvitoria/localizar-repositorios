@@ -1,3 +1,6 @@
+/*Para o erro do webpack serve não encontrar o módulo https://stackoverflow.com/questions/40379139/cannot-find-module-webpack-bin-config-yargs */
+import api from './api'
+
 class App {
 
     // Construtor
@@ -19,20 +22,64 @@ class App {
         this.formulario.onsubmit = evento => this.adicionarRepositorio(evento)
     }
 
-    adicionarRepositorio(evento){
+    async adicionarRepositorio(evento){
         // Evita que o formulário recarregue a página
         evento.preventDefault()
 
-        // Adiciona o repositório na lista
-        this.repositorios.push({
-            nome: 'Nerd fontes',
-            descricao: 'Iconic font aggregator, collection, and patcher',
-            avatar_url: 'https:/avatars0.githubusercontent.com/u/8083459?v=4',
-            link: 'https://github.com/ryanoasis/nerd-fonts',
-        })
+        // Recuperar o valor do input
+        let input = this.formulario.querySelector('input[id=repositorio]').value
 
-        // Renderizar na tela
-       this.renderizarTela()
+        // Se o input vier vazio...sai da app
+        if(input.length === 0){
+            return // sempre sai da função
+        }
+
+        // Ativa o carregamento
+        this.apresentarBuscando()
+
+        try{
+            let response = await api.get(`/repos/${input}`)
+
+            console.log(response)
+
+            let { name, description, html_url, owner: { avatar_url } } = response.data
+
+            // Adiciona o repositório na lista
+            this.repositorios.push({
+                nome: name,
+                descricao: description,
+                avatar_url,
+                link: html_url,
+            })
+
+            // Renderizar na tela
+            this.renderizarTela()
+        }catch(erro){
+            // Limpa buscando
+            this.lista.removeChild(document.querySelector('.list-group-item-warning'))
+
+            // Limpar erro existente
+            let er = this.lista.querySelector('.list-group-item-danger')
+            if(er !== null){
+                er.removeChild(er)
+            }
+
+            // <li>
+            let li = document.createElement('li')
+            li.setAttribute('class', 'list-group-item list-group-item-danger')
+            let txtErro = document.createTextNode(`O repositório ${input} não existe`)
+            li.appendChild(txtErro)
+            this.lista.appendChild(li)
+        }
+    }
+
+    apresentarBuscando(){
+        // <li>
+        let li = document.createElement('li')
+        li.setAttribute('class', 'list-group-item list-group-item-warning')
+        let txtBuscando = document.createTextNode(`Aguarde, buscando o repositório...`)
+        li.appendChild(txtBuscando)
+        this.lista.appendChild(li)
     }
 
     renderizarTela(){

@@ -18,7 +18,8 @@
     "axios": "^0.21.1"
   },
   "scripts": {
-    "dev": "babel ./src/main.js -o ./src/bundle.js",
+    "dev": "webpack serve --mode=development",
+    "dev2": "babel ./src/main.js -o ./src/bundle.js",
     "prod": "webpack --mode=production"
   }
 }
