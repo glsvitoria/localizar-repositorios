@@ -1,3 +1,11 @@
+:root{
+    --cor1: #b1e6d1;
+    --cor2: #77b1a9;
+    --cor3: #3d7b80;
+    --cor4: #270a33;
+    --cor5: #451a3e;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,11 +14,11 @@
 }
 
 body {
-    background: #1FB88A;
+    background: var(--cor4);
 }
 
 .card-header {
-    background: #afa2e9;
+    background: var(--cor2);
 }
 
 ul {
@@ -23,7 +31,6 @@ li {
 }
 
 .list-group-item-action {
-    background: #7cb9a6;
     border: 0;
 }
 
@@ -42,10 +49,28 @@ p {
 }
 
 .social i {
-    color: #167e5f;
-    font-size: 2.8rem;
+    color: var(--cor5);
+    font-size: 2.4rem;
+}
+
+.social i:hover{
+    color: var(--cor1);
+    transform: translateY(-0.8rem);
 }
 
 .social a:hover {
     text-decoration: none;
+}
+
+.btn-primary {
+    background-color: var(--cor1);
+    border-color: var(--cor3);
+    color: var(--cor4);
+
+    transition: 0.5s;
+}
+
+.btn-primary:hover {
+    background-color: var(--cor3);
+    transform: scale(1.05);
 }
